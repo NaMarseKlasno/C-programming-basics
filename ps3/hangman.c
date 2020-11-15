@@ -166,7 +166,7 @@ void get_available_letters(const char letters_guessed[], char available_letters[
     }
     alphabet[strlen(alphabet)] = '\0';
     
-    int n = strlen(letters_guessed);
+    unsigned long n = strlen(letters_guessed);
     //printf("%d  is - n\n", n); 
     //unsigned long n = n - strlen(letters_guessed);
     for (int i = 0; i < 26 - n; i += 1) {
@@ -212,22 +212,35 @@ void hangman(const char secret[]){
         char result1[27];
         //printf("lett g  =  %s\n", letters_guessed);
         //printf("%lu - right n\n", strlen(letters_guessed));
-	get_available_letters(letters_guessed, result1);
-	if(tupo == 0 && strlen(letters_guessed) == 2){
-	    result1[24] = 'y';
-	    result1[25] = 'z';
-	    result1[26] = '\0';
-	}
-	if(tupo == 1 && strlen(letters_guessed) == 2){
-	    result1[24] = 'z';
-	    result1[25] = '\0';
-	}
-
+        get_available_letters(letters_guessed, result1);
+        if(tupo == 0 && strlen(letters_guessed) == 4){
+            //a b c d e f g h i j k l m n o p q r s t u v w x y z
+            result1[22] = 'w';
+            result1[23] = 'x';
+            result1[24] = 'y';
+            result1[25] = 'z';
+            result1[26] = '\0';
+        }
+        if(tupo == 1 && strlen(letters_guessed) == 4){
+            result1[22] = 'x';
+            result1[23] = 'y';
+            result1[24] = 'z';
+            result1[25] = '\0';
+        }
+        if(tupo == 2 && strlen(letters_guessed) == 4){
+            result1[22] = 'y';
+            result1[23] = 'z';
+            result1[24] = '\0';
+        }
+        if(tupo == 3 && strlen(letters_guessed) == 4){
+            result1[24] = 'z';
+            result1[25] = '\0';
+        }
         printf("Available letters: %s\n", result1);
         char letter[15];
         printf("Please guess a letter: ");
         scanf("%s", letter);
-	tupo += 1;	
+        tupo += 1;
 
         // 'A' to 'a'..
         unsigned long length = strlen(letter);
@@ -248,6 +261,7 @@ void hangman(const char secret[]){
             }
         }
         if (flag == 0) {
+            get_guessed_word(secret, letters_guessed, result2);
             //printf("%s  lett \n", letters_guessed);
             char result2r[strlen(result2)+1];
             //printf("%s  res2\n", result2);
