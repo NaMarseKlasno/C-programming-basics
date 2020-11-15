@@ -249,6 +249,7 @@ void hangman(const char secret[]){
             }
         }
         if (flag == 0) {
+            get_guessed_word(secret, letters_guessed, result2);
             //printf("%s  lett \n", letters_guessed);
             char result2r[strlen(result2)+1];
             //printf("%s  res2\n", result2);
