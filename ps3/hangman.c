@@ -197,8 +197,8 @@ void hangman(const char secret[]){
     int guesses = 8;
     
     char letters_guessed[30] = {""};
-    char letone[30];
-    char result2[30];  //strlen(secret) + 1
+    char letone[30] = {""};
+    char result2[30] = {""};  //strlen(secret) + 1
     int n = 0;
     
     int ii = 0;
