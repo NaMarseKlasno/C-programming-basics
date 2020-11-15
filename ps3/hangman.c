@@ -165,15 +165,16 @@ void get_available_letters(const char letters_guessed[], char available_letters[
         }
     }
     alphabet[strlen(alphabet)] = '\0';
-    
+    int nn = 26;
     unsigned long n = strlen(letters_guessed);
     if(n == 26){
         alphabet[0] = '\0';
+        nn = 27;
     }
     
-    //printf("%lu  is - n\n", n); 
+    //printf("%lu  is - n\n", n);
     //unsigned long n = n - strlen(letters_guessed);
-    for (int i = 0; i < 26 - n; i += 1) {
+    for (int i = 0; i < nn - n; i += 1) {
         available_letters[i] = alphabet[i];
         available_letters[i+1] = '\0';
         //printf("%s  [%d]\n", available_letters, i);
@@ -215,16 +216,16 @@ void hangman(const char secret[]){
         printf("-------------\n");
         printf("You have %d guesses left.\n", guesses);
         
-        char result1[26-strlen(letters_guessed)] = {""};
+        char result1[26-strlen(letters_guessed)];
         //printf("lett g = [%s]\n", letters_guessed);
         //printf("%lu - right n\n", strlen(letters_guessed));
-	    get_available_letters(letters_guessed, result1);
+        get_available_letters(letters_guessed, result1);
 
         printf("Available letters: %s\n", result1);
         char letter[15];
         printf("Please guess a letter: ");
         scanf("%s", letter);
-	    tupo += 1;	
+        tupo += 1;
 
         // 'A' to 'a'..
         unsigned long length = strlen(letter);
