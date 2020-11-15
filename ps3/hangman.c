@@ -215,8 +215,11 @@ void hangman(const char secret[]){
         }
         printf("-------------\n");
         printf("You have %d guesses left.\n", guesses);
-        
-        char result1[26-strlen(letters_guessed)];
+        int nn = 26;
+        if (strlen(letters_guessed) == 26) {
+            nn = 27;
+        }
+        char result1[nn-strlen(letters_guessed)];
         //printf("lett g = [%s]\n", letters_guessed);
         //printf("%lu - right n\n", strlen(letters_guessed));
         get_available_letters(letters_guessed, result1);
