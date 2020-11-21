@@ -297,7 +297,6 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
     
     ii = 63;
     int n = 10;
-    int k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols*n); j++) {
@@ -310,7 +309,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -323,7 +322,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -336,7 +335,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -349,7 +348,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -362,7 +361,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -375,7 +374,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -388,7 +387,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -401,7 +400,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -414,7 +413,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -427,7 +426,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -440,7 +439,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -453,7 +452,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -466,7 +465,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -479,7 +478,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -492,7 +491,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -505,7 +504,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -518,7 +517,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -531,7 +530,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -544,7 +543,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -557,7 +556,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -570,7 +569,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -583,7 +582,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -596,7 +595,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -610,7 +609,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
     //n = 33 down
     ii = ii - 1;
     n = n + 1;
-    k = (n-1)*3;
+    //k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
             for (int j = c; j < (cols * n); j++) {
@@ -630,29 +629,22 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
 // task 3 f2
 void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]){
-    int jj = 0;
-    int ii = 0;
-    int i = 0;
-    for (int j = 0; j < (8*offset); j++) {
-        bytes[ii][jj] = blocks[j][i];
-        if (i < 3) {
-            i++;
-            if (jj < 8)
-                jj++;
-            else{
-                jj = 0;
-                ii++;
-            }
-        }
-        else{
-            i = 0;
-            if (jj < 8)
-                jj++;
-            else{
-                jj = 0;
-                ii++;
-            }
+    
+    
+    
+    for (int i = 0; i < cols; i++) {
+        for (int j = 0; j < (8*offset); j++) {
+            bytes[i][j] = blocks[j][i];
         }
     }
+    int n = rows / cols;
+    if(n == 2)
+        n = 8;
+    for (int i = n; i < cols; i++) {
+        for (int j = n; j < 8 * offset; j++) {
+            bytes[i][j] = blocks[j][i];
+        }
+    }
+    
     
 }
