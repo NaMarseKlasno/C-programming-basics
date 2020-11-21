@@ -17,13 +17,14 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]);
 
 int main() {
-    int length = 4+1, cols = 3, offset = 2;
-    bool bytes1[4+1][8] = {
-        {0,1,0,0,0,0,0,1},
-        {0,1,1,0,1,0,0,0},
-        {0,1,1,0,1,1,1,1},
-        {0,1,1,0,1,0,1,0},
-        {0,0,0,0,0,0,0,0}
+    int length = 5+1, cols = 2, offset = 3;
+    bool bytes1[6][8] = {
+        {0, 1, 0, 0, 0, 0, 0, 1},
+        {0, 1, 0, 1, 0, 0, 1, 1},
+        {0, 1, 0, 0, 0, 0, 1, 1},
+        {0, 1, 0, 0, 1, 0, 0, 1},
+        {0, 1, 0, 0, 1, 0, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0}
     };
     bool blocks1[offset*8][cols];
     bytes_to_blocks(cols, offset, blocks1, length, bytes1);
@@ -36,6 +37,26 @@ int main() {
             printf("\n");
         }
     }
+    // prints:
+    // 0 0 0
+    // 1 1 1
+    // 0 1 1
+    // 0 0 0
+    // 0 1 1
+    // 0 0 1
+    // 0 0 1
+    // 1 0 1
+    //
+    // 0 0 0
+    // 1 0 0
+    // 1 0 0
+    // 0 0 0
+    // 1 0 0
+    // 0 0 0
+    // 1 0 0
+    // 0 0 0
+
+    
     return 0;
 }
 
@@ -184,15 +205,18 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
     
     //int jj = 8;
     //printf("res: \n");
+    int c = 0;
     for (int i=0; i < (8); i++) {
-        for (int j = 0; j<(cols); j++) {
+        for (int j = c; j<(cols); j++) {
             blocks[i][j] = res[i][j];
+            //printf("j = %d\n", j);
         }
     }
+    c = c + cols;
     int ii = 7;
     if(offset >= 2){
         for (int i = 0; i < 8; i++) {
-            for (int j = 3; j < (cols*2); j++) {
+            for (int j = c; j < (cols*2); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
@@ -200,348 +224,409 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
     }
     //printf("ii = %d\n", ii);
     ii = 14;
+    c = c + cols;
     if(offset >= 3){
         for (int i = 0; i < 8; i++) {
-            for (int j = 6; j < (cols*3); j++) {
+            for (int j = c; j < (cols*3); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
     //printf("ii = %d\n", ii);
+    c = c + cols;
     ii = 21;
     if(offset >= 4){
         for (int i = 0; i < 8; i++) {
-            for (int j = 9; j < (cols*4); j++) {
+            for (int j = c; j < (cols*4); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
-    }
+    } ////////////////////////////////////////////////////////////////
     ii = 28;
+    c = c + cols;
     if(offset >= 5){
         for (int i = 0; i < 8; i++) {
-            for (int j = 12; j < (cols*5); j++) {
+            for (int j = c; j < (cols*5); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
     ii = 35;
+    c = c + cols;
     if(offset >= 6){
         for (int i = 0; i < 8; i++) {
-            for (int j = 15; j < (cols*6); j++) {
+            for (int j = c; j < (cols*6); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = 42;
     if(offset >= 7){
         for (int i = 0; i < 8; i++) {
-            for (int j = 18; j < (cols*7); j++) {
+            for (int j = c; j < (cols*7); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = 49;
     if(offset >= 8){
         for (int i = 0; i < 8; i++) {
-            for (int j = 21; j < (cols*8); j++) {
+            for (int j = c; j < (cols*8); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = 56;
     if(offset >= 9){
         for (int i = 0; i < 8; i++) {
-            for (int j = 24; j < (cols*9); j++) {
+            for (int j = c; j < (cols*9); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     
     ii = 63;
     int n = 10;
     int k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols*n); j++) {
+            for (int j = c; j < (cols*n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    c = c + cols;
+
     //n = 33 down
     ii = ii - 1;
     n = n + 1;
     k = (n-1)*3;
     if(offset >= n){
         for (int i = 0; i < 8; i++) {
-            for (int j = k; j < (cols * n); j++) {
+            for (int j = c; j < (cols * n); j++) {
                 blocks[ii][j] = res[i][j];
             }
             ii++;
         }
     }
+    blocks[1][0] = 0;
     
-    for (int i = 7 * (offset - 1); i < (8*offset); i++) {
+    for (int i = 8 * (offset - 1); i < (8*offset); i++) {
         for (int j = rows - 1; j < cols*offset; j++) {
             blocks[i][j] = 0;
         }
@@ -550,7 +635,29 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 
 // task 3 f2
 void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]){
-    // soon
+    int jj = 0;
+    int ii = 0;
+    int i = 0;
+    for (int j = 0; j < (8*offset); j++) {
+        bytes[ii][jj] = blocks[j][i];
+        if (i < 3) {
+            i++;
+            if (jj < 8)
+                jj++;
+            else{
+                jj = 0;
+                ii++;
+            }
+        }
+        else{
+            i = 0;
+            if (jj < 8)
+                jj++;
+            else{
+                jj = 0;
+                ii++;
+            }
+        }
+    }
+    
 }
-
-
