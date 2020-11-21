@@ -17,44 +17,39 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]);
 
 int main() {
-    int length = 5+1, cols = 2, offset = 3;
-    bool bytes1[6][8] = {
-        {0, 1, 0, 0, 0, 0, 0, 1},
-        {0, 1, 0, 1, 0, 0, 1, 1},
-        {0, 1, 0, 0, 0, 0, 1, 1},
-        {0, 1, 0, 0, 1, 0, 0, 1},
-        {0, 1, 0, 0, 1, 0, 0, 1},
-        {0, 0, 0, 0, 0, 0, 0, 0}
+    int length = 5+1;
+    bool blocks2[2*8][3] = {
+        {0,0,0},
+        {1,1,1},
+        {0,1,1},
+        {0,0,0},
+        {0,1,1},
+        {0,0,1},
+        {0,0,1},
+        {1,0,1},
+        {0,0,0},
+        {1,0,0},
+        {1,0,0},
+        {0,0,0},
+        {1,0,0},
+        {0,0,0},
+        {1,0,0},
+        {0,0,0}
     };
-    bool blocks1[offset*8][cols];
-    bytes_to_blocks(cols, offset, blocks1, length, bytes1);
-    for(int j = 0; j < offset*8; j++){
-        for(int i = 0; i < cols; i++){
-            printf("%d ", (blocks1[j][i] == true) ? 1 : 0);
+    bool bytes2[length][8];
+    blocks_to_bytes(3, 2, blocks2, length, bytes2);
+    for(int j = 0; j < length; j++){
+        for(int i = 0; i < 8; i++){
+            printf("%d", bytes2[j][i]);
         }
         printf("\n");
-        if(j % 8 == 7){
-            printf("\n");
-        }
     }
     // prints:
-    // 0 0 0
-    // 1 1 1
-    // 0 1 1
-    // 0 0 0
-    // 0 1 1
-    // 0 0 1
-    // 0 0 1
-    // 1 0 1
-    //
-    // 0 0 0
-    // 1 0 0
-    // 1 0 0
-    // 0 0 0
-    // 1 0 0
-    // 0 0 0
-    // 1 0 0
-    // 0 0 0
+    // 01000001
+    // 01101000
+    // 01101111
+    // 01101010
+    // 00000000
 
     
     return 0;
