@@ -234,6 +234,7 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
     if (offset > 6 && cols == 2) {
         blocks[1][1] = 0;
         blocks[3][1] = 0;
+        blocks[3][0] = 0;
         blocks[5][0] = 0;
     }
     if (cols == 3) {
