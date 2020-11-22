@@ -18,32 +18,24 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]);
 
 int main() {
-    int length = 13+1, cols = 6, offset = 3;
-    bool blocks2[3*8][6] = {
-        {0, 0, 0, 0, 0, 0},
-        {1, 1, 1, 1, 1, 1},
-        {0, 1, 1, 1, 1, 1},
-        {1, 1, 0, 1, 0, 0},
-        {0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 1, 1, 1},
-        {0, 1, 0, 1, 0, 0},
-        {0, 0, 1, 0, 0, 1},
-        {0, 0, 0, 0, 0, 0},//8
-        {1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0},
-        {0, 1, 0, 1, 0, 1},
-        {0, 1, 1, 1, 0, 1},
-        {0, 1, 0, 1, 1, 1},
-        {0, 1, 0, 1, 0, 0},
-        {0, 0, 0, 0, 0, 0},//16
-        {1, 0, 0, 0, 0, 0},
-        {1, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0},
-        {1, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0},
-        {1, 0, 0, 0, 0, 0}
+    int length = 5+1, cols = 4, offset = 2;
+    bool blocks2[2*8][4] = {
+        {0, 0, 0, 0},
+        {1, 1, 1, 1},
+        {0, 1, 1, 1},
+        {0, 1, 1, 0},
+        {0, 0, 0, 1},
+        {0, 0, 0, 0},
+        {0, 0, 0, 1},
+        {1, 0, 0, 1},
+        {0, 0, 0, 0},
+        {1, 0, 0, 0},
+        {1, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {1, 0, 0, 0}
     };
     bool bytes2[length][8];
     blocks_to_bytes(cols, offset, blocks2, length, bytes2);
@@ -53,12 +45,6 @@ int main() {
         }
         printf("\n");
     }
-    // prints:
-    // 01000001
-    // 01101000
-    // 01101111
-    // 01101010
-    // 00000000
     return 0;
 }
 
@@ -250,6 +236,9 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
         blocks[3][1] = 0;
         blocks[5][0] = 0;
     }
+    if (cols == 3) {
+        blocks[2][0] = 0;
+    }
     
     for (int i = 8 * (offset - 1); i < (8*offset); i++) {
         for (int j = rows - 1; j < cols*offset; j++) {
@@ -281,8 +270,8 @@ void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][col
     int jj = 0;
     
     int b = 8;
-    int in = 3;
-    while( n != 1 && offset > 1 ){
+    int in = cols;
+    while( n > 1 && offset > 1 ){
         for (int i = in; i < in+cols; i++) {
             for (int j = 0; j < 8; j++) {
                 res[j][i] = blocks[ii][jj];
@@ -313,4 +302,6 @@ void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][col
         }
     }
 }
+
+
 
