@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 // task 1
 void encode_char(const char character, bool bits[8]);
 char decode_byte(const bool bits[8]);
@@ -17,49 +18,43 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
 void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]);
 
 int main() {
-    int length = 7+1, cols = 3, offset = 3;
-    bool blocks2[3*8][3] = {
-        {0,0,0},
-        {1,1,1},
-        {0,1,1},
-        {0,0,0},
-        {0,1,1},
-        {0,0,1},
-        {0,0,1},
-        {1,0,1},
-        {0,0,0},
-        {1,1,1},
-        {1,1,1},
-        {0,0,0},
-        {1,1,1},
-        {1,0,0},
-        {1,1,0},
-        {0,1,1},
-        {0,0,0},
-        {1,0,0},
-        {1,0,0},
-        {0,0,0},
-        {1,0,0},
-        {0,0,0},
-        {1,0,0},
-        {0,0,0}
+    int length = 4+1, cols = 3, offset = 2;
+    bool bytes1[4+1][8] = {
+        {0,1,0,0,0,0,0,1},
+        {0,1,1,0,1,0,0,0},
+        {0,1,1,0,1,1,1,1},
+        {0,1,1,0,1,0,1,0},
+        {0,0,0,0,0,0,0,0}
     };
-    bool bytes2[length][8];
-    blocks_to_bytes(cols, offset, blocks2, length, bytes2);
-    for(int j = 0; j < length; j++){
-        for(int i = 0; i < 8; i++){
-            printf("%d", bytes2[j][i]);
+    bool blocks1[offset*8][cols];
+    bytes_to_blocks(cols, offset, blocks1, length, bytes1);
+    for(int j = 0; j < offset*8; j++){
+        for(int i = 0; i < cols; i++){
+            printf("%d ", (blocks1[j][i] == true) ? 1 : 0);
         }
         printf("\n");
+        if(j % 8 == 7){
+            printf("\n");
+        }
     }
     // prints:
-    // 01000001
-    // 01101000
-    // 01101111
-    // 01101010
-    // 00000000
-
-    
+    // 0 0 0
+    // 1 1 1
+    // 0 1 1
+    // 0 0 0
+    // 0 1 1
+    // 0 0 1
+    // 0 0 1
+    // 1 0 1
+    //
+    // 0 0 0
+    // 1 0 0
+    // 1 0 0
+    // 0 0 0
+    // 1 0 0
+    // 0 0 0
+    // 1 0 0
+    // 0 0 0
     return 0;
 }
 
@@ -191,441 +186,35 @@ void decode_bytes(const int rows, bool bytes[rows][8], char string[rows]){
         string[j] = decode_byte(bytes[j]);
     }
 }
-
 // task 3 f1
 void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]){
-    int res[8][rows];
     
+    //  ИНИЦИАЛИЗАЦИЯ РЕЗ МАССИВА+ ЗНАК '\0'
+    int res[8][offset*cols+1];
+    for (short t = 0; t<8; t++) {
+        for (short o = 0; o<(offset * cols); o++) {
+            res[t][o] = 0;
+        }
+        res[t][offset*cols] = '\0';
+    }
     
-    //int res2[8][cols];
+    //  ПЕРЕБОР РЕЗ МАССИВА
     for (int x = 0; x < 8; x++) {
-        for (int y = 0; y < (rows); y++) {
+        for (int y = 0; y < (offset*cols); y++) {
             res[x][y] = bytes[y][x];
         }
     }
     
+    //  ПЕРЕБОР ОСТНОВНОГО МАССИВА
     
-    
-    //int jj = 8;
-    //printf("res: \n");
-    int c = 0;
-    for (int i=0; i < (8); i++) {
-        for (int j = c; j<(cols); j++) {
+    for (int i = 0; i < 8*offset; i++) {
+        for (int j = 0; j < cols; j++) {
             blocks[i][j] = res[i][j];
-            //printf("j = %d\n", j);
         }
     }
-    c = c + cols;
-    int ii = 7;
-    if(offset >= 2){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*2); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    //printf("ii = %d\n", ii);
-    ii = 14;
-    c = c + cols;
-    if(offset >= 3){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*3); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    //printf("ii = %d\n", ii);
-    c = c + cols;
-    ii = 21;
-    if(offset >= 4){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*4); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    } ////////////////////////////////////////////////////////////////
-    ii = 28;
-    c = c + cols;
-    if(offset >= 5){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*5); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    ii = 35;
-    c = c + cols;
-    if(offset >= 6){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*6); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = 42;
-    if(offset >= 7){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*7); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = 49;
-    if(offset >= 8){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*8); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = 56;
-    if(offset >= 9){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*9); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
     
-    ii = 63;
-    int n = 10;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
-    c = c + cols;
-
-    //n = 33 down
-    ii = ii - 1;
-    n = n + 1;
-    //k = (n-1)*3;
-    if(offset >= n){
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols * n); j++) {
-                blocks[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-    }
+    //  ВЫВОД РЕЗ МАССИВА
+    
     
     for (int i = 8 * (offset - 1); i < (8*offset); i++) {
         for (int j = rows - 1; j < cols*offset; j++) {
@@ -633,25 +222,55 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
         }
     }
 }
+    
 
 // task 3 f2
 void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]){
-    
-    
-    
-    for (int i = 0; i < cols; i++) {
-        for (int j = 0; j < (8*offset); j++) {
-            bytes[i][j] = blocks[j][i];
+    int res[8][offset*cols+1];
+    for (int t = 0; t < 8; t++) {
+        for (int y = 0; y < offset*cols; y++) {
+            res[t][y] = 0;
         }
-    }
-    int n = rows / cols;
-    if(n == 2)
-        n = 8;
-    for (int i = n; i < cols; i++) {
-        for (int j = n; j < 8 * offset; j++) {
-            bytes[i][j] = blocks[j][i];
-        }
+        res[t][offset*cols] = '\0';
     }
     
     
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < cols; j++) {
+            res[i][j] = blocks[i][j];
+        }
+    }
+    
+    int n = offset;
+    int ii = 8;
+    int jj = 0;
+    
+    int b = 8;
+    int in = 3;
+    while( n != 1 && offset > 1 ){
+        for (int i = in; i < in+3; i++) {
+            for (int j = 0; j < 8; j++) {
+                res[j][i] = blocks[ii][jj];
+                ii++;
+                //printf("j:[%d]\n",j);
+            }
+            jj++;
+            ii = b;
+        }
+        jj = 0;
+        b += 8;
+        ii = b;
+        n-=1;
+        in += 3;
+        //printf("ii: %d, jj: %d\n", ii, jj);
+    }
+    
+    for (int i = 0; i <= rows; i++) {
+        for (int j = 0; j < 8; j++) {
+            bytes[i][j] = res[j][i];
+        }
+    }
 }
+
+
+
