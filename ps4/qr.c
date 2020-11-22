@@ -297,7 +297,7 @@ void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][col
         ii = b;
         n-=1;
         in += 3;
-        //printf("ii: %d, jj: %d\n", ii, jj);
+        //printf("ii: %d, jj: %d\n",  ii,  jj);
     }
     
     for (int i = 0; i <= rows; i++) {
