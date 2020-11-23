@@ -327,7 +327,6 @@ int range_j(int cols2, int offset2, int rows2){
     static int jj = -1;
     static int off = 1;
     static int count_jj = 0;
-    static int lump = 0;
     
     jj++;
 
@@ -341,7 +340,6 @@ int range_j(int cols2, int offset2, int rows2){
         num_n1=0;
     }
 
-    lump = jj;
     count_jj++;
     if (count_jj == (8*rows2)+1) {
         return 9999;
