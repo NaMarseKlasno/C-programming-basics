@@ -19,13 +19,15 @@ void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][col
 int range_j(int cols2, int offset2, int rows2);
 
 int main() {
-    int length = 4+1, cols = 2, offset = 3;
-    bool bytes1[4+1][8] = {
-        {0,1,0,0,0,0,0,1},
-        {0,1,1,0,1,0,0,0},
-        {0,1,1,0,1,1,1,1},
-        {0,1,1,0,1,0,1,0},
-        {0,0,0,0,0,0,0,0}
+    int length = 6+1, cols = 5, offset = 4;
+    bool bytes1[7][8] = {
+        {0, 1, 1, 1, 0, 0, 1, 1},
+        {0, 1, 1, 0, 1, 0, 1, 1},
+        {0, 1, 1, 0, 0, 1, 0, 1},
+        {0, 1, 1, 0, 1, 1, 1, 0},
+        {0, 1, 1, 0, 0, 1, 0, 1},
+        {0, 1, 1, 1, 0, 0, 1, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0}
     };
     bool blocks1[offset*8][cols];
     bytes_to_blocks(cols, offset, blocks1, length, bytes1);
@@ -234,13 +236,20 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
             blocks[i][j] = box[i][j];
         }
     }
+    int piz = 0;
+    
     int cols1 = cols;
     int we = rows;
     while (we - cols1 > 0) {
         we -= cols1;
+        piz++;
     }
-    for (int i = 8 * (offset - 1); i < (8*offset); i++) {
-        for (int j = we; j < cols*offset; j++) {
+    //printf("we: %d [%d]\n", we, piz);
+    for (int i = 8 * (piz); i < (8*offset); i++) {
+        if (i == (8*piz) + 8) {
+            we = 0;
+        }
+        for (int j = we; j < cols; j++) {
             blocks[i][j] = 0;
         }
     }
@@ -347,5 +356,4 @@ int range_j(int cols2, int offset2, int rows2){
     
     return jj;
 }
-
 
