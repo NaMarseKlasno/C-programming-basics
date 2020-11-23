@@ -19,14 +19,13 @@ void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][col
 int range_j(int cols2, int offset2, int rows2);
 
 int main() {
-    int length = 6+1, cols = 5, offset = 4;
-    bool bytes1[7][8] = {
-        {0, 1, 1, 1, 0, 0, 1, 1},
+    int length = 5+1, cols = 2, offset = 3;
+    bool bytes1[6][8] = {
+        {0, 1, 0, 0, 0, 0, 0, 1},
+        {0, 1, 1, 1, 0, 0, 0, 0},
+        {0, 1, 1, 1, 0, 0, 0, 0},
         {0, 1, 1, 0, 1, 0, 1, 1},
-        {0, 1, 1, 0, 0, 1, 0, 1},
-        {0, 1, 1, 0, 1, 1, 1, 0},
-        {0, 1, 1, 0, 0, 1, 0, 1},
-        {0, 1, 1, 1, 0, 0, 1, 0},
+        {0, 1, 1, 0, 0, 0, 0, 1},
         {0, 0, 0, 0, 0, 0, 0, 0}
     };
     bool blocks1[offset*8][cols];
@@ -40,24 +39,7 @@ int main() {
             printf("\n");
         }
     }
-    // prints:
-    // 0 0 0
-    // 1 1 1
-    // 0 1 1
-    // 0 0 0
-    // 0 1 1
-    // 0 0 1
-    // 0 0 1
-    // 1 0 1
-    //
-    // 0 0 0
-    // 1 0 0
-    // 1 0 0
-    // 0 0 0
-    // 1 0 0
-    // 0 0 0
-    // 1 0 0
-    // 0 0 0
+    
     
     return 0;
 }
@@ -192,6 +174,13 @@ void decode_bytes(const int rows, bool bytes[rows][8], char string[rows]){
 }
 // task 3 f1
 void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]){
+    bool qk[rows][8];
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < 8; j++) {
+            qk[i][j] = bytes[i][j];
+        }
+    }
+    
     int ii = 0;
     for (int i = 0; i< offset*8; i++) {
         for (int j = 0; j < cols; j++) {
@@ -253,23 +242,12 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
             blocks[i][j] = 0;
         }
     }
-
-    //int cols1 = cols;
-    //int we = rows;
-    //while (we - cols1 > 0) {
-    //    we -= cols1;
-    //}
-    //printf("we-[%d]\n", we);
-    
-    //for (int i = cols*offset; i < (8*offset); i++) {
-    //        for (int j = we; j < cols; j++) {
-    //            bytes[i][j] = 0;
-    //        }
-    // }
-    
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < 8; j++) {
+            bytes[i][j] = qk[i][j];
+        }
+    }
 }
-    
-
 // task 3 f2
 void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]){
     int res[8][offset*cols];
@@ -356,4 +334,5 @@ int range_j(int cols2, int offset2, int rows2){
     
     return jj;
 }
+
 
