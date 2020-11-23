@@ -16,35 +16,47 @@ void decode_bytes(const int rows, bool bytes[rows][8], char string[rows]);
 // task 3
 void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]);
 void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]);
+int range_j(int cols2, int offset2, int rows2);
 
 int main() {
-    int length = 5+1, cols = 4, offset = 2;
-    bool blocks2[2*8][4] = {
-        {0, 0, 0, 0},
-        {1, 1, 1, 1},
-        {0, 1, 1, 1},
-        {0, 1, 1, 0},
-        {0, 0, 0, 1},
-        {0, 0, 0, 0},
-        {0, 0, 0, 1},
-        {1, 0, 0, 1},
-        {0, 0, 0, 0},
-        {1, 0, 0, 0},
-        {1, 0, 0, 0},
-        {0, 0, 0, 0},
-        {0, 0, 0, 0},
-        {0, 0, 0, 0},
-        {0, 0, 0, 0},
-        {1, 0, 0, 0}
+    int length = 4+1, cols = 2, offset = 3;
+    bool bytes1[4+1][8] = {
+        {0,1,0,0,0,0,0,1},
+        {0,1,1,0,1,0,0,0},
+        {0,1,1,0,1,1,1,1},
+        {0,1,1,0,1,0,1,0},
+        {0,0,0,0,0,0,0,0}
     };
-    bool bytes2[length][8];
-    blocks_to_bytes(cols, offset, blocks2, length, bytes2);
-    for(int j = 0; j < length; j++){
-        for(int i = 0; i < 8; i++){
-            printf("%d", bytes2[j][i]);
+    bool blocks1[offset*8][cols];
+    bytes_to_blocks(cols, offset, blocks1, length, bytes1);
+    for(int j = 0; j < offset*8; j++){
+        for(int i = 0; i < cols; i++){
+            printf("%d ", (blocks1[j][i] == true) ? 1 : 0);
         }
         printf("\n");
+        if(j % 8 == 7){
+            printf("\n");
+        }
     }
+    // prints:
+    // 0 0 0
+    // 1 1 1
+    // 0 1 1
+    // 0 0 0
+    // 0 1 1
+    // 0 0 1
+    // 0 0 1
+    // 1 0 1
+    //
+    // 0 0 0
+    // 1 0 0
+    // 1 0 0
+    // 0 0 0
+    // 1 0 0
+    // 0 0 0
+    // 1 0 0
+    // 0 0 0
+    
     return 0;
 }
 
@@ -178,14 +190,11 @@ void decode_bytes(const int rows, bool bytes[rows][8], char string[rows]){
 }
 // task 3 f1
 void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][cols], const int rows, bool bytes[rows][8]){
-    
-    //  ИНИЦИАЛИЗАЦИЯ РЕЗ МАССИВА+ ЗНАК '\0'
-    int res[8][offset*cols+1];
-    for (short t = 0; t<8; t++) {
-        for (short o = 0; o<(offset * cols); o++) {
-            res[t][o] = 0;
+    int ii = 0;
+    for (int i = 0; i< offset*8; i++) {
+        for (int j = 0; j < cols; j++) {
+            blocks[i][j] = 0;
         }
-        //res[t][offset*cols] = '\0';
     }
     
     int box[offset*8][cols];
@@ -193,59 +202,62 @@ void bytes_to_blocks(const int cols, const int offset, bool blocks[offset*8][col
         for (int j = 0; j < cols; j++) {
             box[i][j] = 0;
         }
-        box[i][cols] = '\0';
     }
     
-    //  ПЕРЕБОР РЕЗ МАССИВА
-    for (int x = 0; x < 8; x++) {
-        for (int y = 0; y < (rows); y++) { //offset*cols
-            res[x][y] = bytes[y][x];
-        }
-    }
     
-    //  ПЕРЕБОР ОСТНОВНОГО МАССИВА
-    for (int i = 0; i < 8*offset; i++) {
-        for (int j = 0; j < cols; j++) {
-            box[i][j] = res[i][j];
-        }
-    }
-    
-    int c = 0;
-    int nn = 2;
-    int ii = 7;
-
-    while (offset >= nn){
-        c = c + cols;
-        for (int i = 0; i < 8; i++) {
-            for (int j = c; j < (cols*nn); j++) {
-                box[ii][j] = res[i][j];
-            }
-            ii++;
-        }
-        nn++;
-        ii = ii - 1;
-    }
+    int res_int = 0;
     for (int i = 0; i < offset*8; i++) {
         for (int j = 0; j < cols; j++) {
-            blocks[i][j] = box[i][j];
+            res_int = range_j(cols, offset, rows);
+            if (res_int == 9999) {
+                box[i][j] = 0;
+            }
+            else{
+                box[i][j] = bytes[res_int][ii];
+            }
+        }
+        ii++;
+        if (ii ==8) {
+            ii=0;
         }
     }
-    blocks[1][0] = 0;
-    if (offset > 6 && cols == 2) {
-        blocks[1][1] = 0;
-        blocks[3][1] = 0;
-        blocks[3][0] = 0;
-        blocks[5][0] = 0;
-    }
-    if (cols == 3) {
-        blocks[2][0] = 0;
-    }
-    
     for (int i = 8 * (offset - 1); i < (8*offset); i++) {
         for (int j = rows - 1; j < cols*offset; j++) {
             blocks[i][j] = 0;
         }
     }
+
+
+    
+    for (int i = 0; i< offset*8; i++) {
+        for (int j = 0; j < cols; j++) {
+            blocks[i][j] = box[i][j];
+        }
+    }
+    int cols1 = cols;
+    int we = rows;
+    while (we - cols1 > 0) {
+        we -= cols1;
+    }
+    for (int i = 8 * (offset - 1); i < (8*offset); i++) {
+        for (int j = we; j < cols*offset; j++) {
+            blocks[i][j] = 0;
+        }
+    }
+
+    //int cols1 = cols;
+    //int we = rows;
+    //while (we - cols1 > 0) {
+    //    we -= cols1;
+    //}
+    //printf("we-[%d]\n", we);
+    
+    //for (int i = cols*offset; i < (8*offset); i++) {
+    //        for (int j = we; j < cols; j++) {
+    //            bytes[i][j] = 0;
+    //        }
+    // }
+    
 }
     
 
@@ -302,7 +314,40 @@ void blocks_to_bytes(const int cols, const int offset, bool blocks[offset*8][col
             bytes[i][j] = res[j][i];
         }
     }
+    //int ww = 100;
+    //while (ww > 1) {
+    //    printf("----\n");
+    //    printf("%d\n", range_j(3, 2));
+    //    ww--;
+    //}
 }
 
+int range_j(int cols2, int offset2, int rows2){
+    static int num_n1 = 0;
+    static int jj = -1;
+    static int off = 1;
+    static int count_jj = 0;
+    static int lump = 0;
+    
+    jj++;
+
+    if (jj == cols2*off && num_n1 != 8) {
+        jj = cols2*off - cols2;
+        num_n1++;
+    }
+    if (num_n1==8) {
+        off++;
+        jj=cols2*(off-1);
+        num_n1=0;
+    }
+
+    lump = jj;
+    count_jj++;
+    if (count_jj == (8*rows2)+1) {
+        return 9999;
+    }
+    
+    return jj;
+}
 
 
