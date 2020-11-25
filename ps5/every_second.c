@@ -24,7 +24,6 @@ int main(int arg, char* subor[], char* subor2[]) {
     
     while (1) {
         letter = fgetc(fp);
-        //letter = getc(fp);
         if (letter == EOF){
             //cat[len_cat-1]='\0';
             //printf("%d\n", len_cat);
@@ -50,11 +49,11 @@ int main(int arg, char* subor[], char* subor2[]) {
                 
                 if(parity%2 == 0 && nn != 1){
                     if (letter == 'S') {
-                        res = getc(fp);
+                        res = fgetc(fp);
                         if (res == 'T') {
-                            res = getc(fp);
+                            res = fgetc(fp);
                             if (res == 'O') {
-                                res = getc(fp);
+                                res = fgetc(fp);
                                 if (res == 'P') {
                                     ops = 1;
                                 }
@@ -93,3 +92,4 @@ char triger_start(int y){
     //printf("[%c]", start[intn1]);
     return start[intn1];
 }
+
