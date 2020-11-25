@@ -33,7 +33,7 @@ int main(int arg, char* subor[], char* subor2[]) {
         }
         
         // check START
-        if (kost1 == 0 && go_up(letter) == triger_start(0)) {
+        if (kost1 == 0 && letter == triger_start(0)) {
             n++;
             if (n==5) {
                 kost1 = 1;
@@ -48,19 +48,19 @@ int main(int arg, char* subor[], char* subor2[]) {
          
         if (kost1==1) {
             if (nn != 0) {
-                
-                if(parity%2 == 0 && nn != 1){
-                    if (go_up(letter) == triger_stop(0)) {
-                        n2++;
-                        if (n2==4) {
-                            ops = 1;
-                            n2=0;
-                        }
-                    }
-                    else{
-                        triger_stop(1);
+                if (letter == triger_stop(0)) {
+                    n2++;
+                    if (n2==4) {
+                        ops = 1;
                         n2=0;
                     }
+                }
+                else{
+                    triger_stop(1);
+                    n2=0;
+                }
+                if(parity%2 == 0 && nn != 1){
+                    
                     
                     if (ops == 0) {
                         //fputc(letter, fp2);
@@ -89,8 +89,10 @@ int main(int arg, char* subor[], char* subor2[]) {
     }
     
     for (int i = 0; i < c; i++) {
+        //printf("c[%c] ", tie[i]);
         fputc(tie[i], fp2);
     }
+    //printf("\n");
     
     fclose(fp);
     fclose(fp2);
