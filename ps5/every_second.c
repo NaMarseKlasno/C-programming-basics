@@ -23,7 +23,8 @@ int main(int arg, char* subor[], char* subor2[]) {
     int ops = 0;
     
     while (1) {
-        letter = getc(fp);
+        letter = fgetc(fp);
+        //letter = getc(fp);
         if (letter == EOF){
             //cat[len_cat-1]='\0';
             //printf("%d\n", len_cat);
