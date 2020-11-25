@@ -1,5 +1,5 @@
 #include <stdio.h>
- 
+
 char check_ananas(int x);
 char check_ANANAS(int y);
 char go_up(char x);
@@ -12,7 +12,6 @@ int main(int arg, char* subor[]) {
     
     // XD
     int Black_Lives_Matter = 0;
-    //char res;
     int marder = 0;
     
     while (1){
@@ -37,8 +36,28 @@ int main(int arg, char* subor[]) {
     //printf("%d\n", Black_Lives_Matter);
     fclose(fp);
     
+    
     FILE *fp2 = fopen(subor[1], "w");
-    fputc('0' + Black_Lives_Matter, fp2);
+    int num[] = {0,'\0'};
+    //int x = 0;
+    //Black_Lives_Matter = 98;
+    
+    for (int i = 0; i < 2; i++) {
+        num[i] = Black_Lives_Matter%10;
+        Black_Lives_Matter /= 10;
+        //printf("num - [%d]\n", num[i]);
+    }
+    
+    if (num[1] == '\0') {
+        fputc('0'+num[0], fp2);
+    }
+    else{
+        fputc('0'+num[1], fp2);
+        fputc('0'+num[0], fp2);
+
+    }
+    
+    fputc((char)Black_Lives_Matter , fp2);
     
     
     fclose(fp2);
