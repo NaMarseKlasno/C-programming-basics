@@ -38,27 +38,30 @@ int main(int arg, char* subor[]) {
     
     
     FILE *fp2 = fopen(subor[1], "w");
-    int num[] = {0,'\0'};
+    int num[4] = {0,'\0','\0','\0'};
     //int x = 0;
-    //Black_Lives_Matter = 98;
+    //Black_Lives_Matter = 999;
+    int N = Black_Lives_Matter;
     
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         num[i] = Black_Lives_Matter%10;
         Black_Lives_Matter /= 10;
         //printf("num - [%d]\n", num[i]);
     }
     
-    if (num[1] == '\0') {
+    if (N < 10 && N >= 0) {
         fputc('0'+num[0], fp2);
     }
-    else{
+    else if(N >= 10 && N < 100){
         fputc('0'+num[1], fp2);
         fputc('0'+num[0], fp2);
 
     }
-    
-    fputc((char)Black_Lives_Matter , fp2);
-    
+    else if (N >= 100 && N < 1000){
+        fputc('0'+num[2], fp2);
+        fputc('0'+num[1], fp2);
+        fputc('0'+num[0], fp2);
+    }
     
     fclose(fp2);
     return 0;
