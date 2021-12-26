@@ -82,7 +82,7 @@ Learn to use an array as a parameter in functions.**
 
 
 
-**Made by **Stanislav Voloshyn** (@.donh)
+**Made by **Stanislav Voloshyn** (@.donh)**
 
 
   
